@@ -1,6 +1,7 @@
 import { useState } from "react";
 import portal from "./assets/portal.png";
 import background from "./assets/background.png";
+import Result from "./Result";
 
 function App() {
   const [form, setForm] = useState({
@@ -22,7 +23,7 @@ function App() {
   return (
     <main className="relative flex justify-center min-h-svh">
       <img src={background} alt="background" className="fixed inset-0 -z-10" />
-      <section className="relative w-[50rem] mx-auto bg-white px-4 overflow-hidden">
+      <section className="relative w-[50rem] mx-auto bg-white px-16 overflow-hidden">
         <div className="absolute -translate-x-1/2 -top-[65%] left-1/2 w-[120%] scale-125 opacity-15 rotate-90">
           <img
             src={portal}
@@ -32,7 +33,7 @@ function App() {
             height={500}
           />
         </div>
-        <div className="relative flex flex-col justify-center gap-4 mx-10 mt-28">
+        <div className="relative flex flex-col justify-center gap-4 mt-28">
           <h3 className="text-5xl font-bold leading-relaxed text-center text-transparent font-kanit bg-gradient-to-b from-primary to-n-1 bg-clip-text">
             Regla de la multiplicación
           </h3>
@@ -43,10 +44,10 @@ function App() {
           </p>
         </div>
 
-        <div className="relative px-12 mt-32">
+        <div className="relative mt-32 bg-gray-100">
           {/* short explanation */}
           <div className="mb-12">
-            <h4 className="text-xl font-semibold text-primary">
+            <h4 className="text-3xl font-semibold text-primary">
               Comienza a calcular
             </h4>
             <p>
@@ -88,6 +89,7 @@ function App() {
             </button>
           </div>
         </div>
+        <Result />
       </section>
     </main>
   );
