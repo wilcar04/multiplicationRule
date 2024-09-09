@@ -1,4 +1,4 @@
-function cartesianProductSingleSetLimited(set, N, limit = 50) {
+function cartesianProductSingleSetLimited(set, N, limit) {
     // Verificar si el conjunto está vacío o N <= 0
     if (set.length === 0 || N <= 0) {
         return [[]];
@@ -26,36 +26,22 @@ function cartesianProductSingleSetLimited(set, N, limit = 50) {
     return result;
 }
 
-function getLimitedCombinations(set, N, limit) {
-    const totalCombinations = cartesianProductSingleSetLimited(set, N, limit); // Calculamos más para obtener las partes requeridas
-
-    const totalCount = set.length;
-    const firstSet = cartesianProductSingleSetLimited(set, N, limit);
-
-    const middleStart = Math.floor(totalCount / 2);
-    let newSet = [];
-    set.reverse();
-    for (let i = middleStart; i< totalCount; i++) {
-        newSet.push(set[i]);
+function getLimitedCombinations(set, N, limit=50) {
+    let firstSet, lastSet = null;
+    if (set.length**N > limit*2){
+        firstSet = cartesianProductSingleSetLimited(set, N, limit);
+        lastSet = cartesianProductSingleSetLimited(set.reverse(), N, limit).reverse();
+    } else{
+        firstSet = cartesianProductSingleSetLimited(set, N, limit*2);
     }
-
-    for (let i = 0; i< middleStart; i++) {
-        newSet.push(set[i]);
-    }
-    console.log('newSet', newSet)
-    const middleSet = cartesianProductSingleSetLimited(newSet, N, limit);
-    
-    const lastSet = cartesianProductSingleSetLimited(set, N, limit).reverse();
-        
-    return [firstSet, middleSet, lastSet];
+    return [firstSet, lastSet];
 }
 
-const set = [1, 2, 3, 4, 5, 6]; 
-const N = 50;
-const limit = 50;
+const set = [1, 2]; 
+const N = 10;
+const limit = 300;
  
 let result = getLimitedCombinations(set, N, limit);
 
-console.log('Primeras 50 combinaciones:', result[0]);
-console.log('Combinaciones del medio:', result[1]);
-console.log('Últimas 50 combinaciones:', result[2]);
+console.log(result[0].length,'Primeras 50 combinaciones:', result[0]);
+console.log(result[1]?.length,'Últimas 50 combinaciones:', result[1]);
