@@ -25,8 +25,8 @@ function cartesianProductSingleSetLimited(set, N, limit) {
     combine([], N, limit);
     return result;
 }
-
-function getLimitedCombinations(set, N, limit=50) {
+// ESTA ES LA FUNCIÓN QUE SE VA A USAR DESDE EL FRONT
+export function getLimitedCombinations(set, N, limit=50) {
     let firstSet, lastSet = null;
     if (set.length**N > limit*2){
         firstSet = cartesianProductSingleSetLimited(set, N, limit);
