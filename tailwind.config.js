@@ -6,13 +6,11 @@ export default {
     extend: {
       colors: {
         primary: "#a53860",
-        secondary: "#ccc5b9",
-        test1: "#E84A8C",
-        test2: "#F3A5C5",
         n: {
           1: "#252422",
           2: "#403d39",
           3: "#dee2e6",
+          4: "#6c757d",
         },
         stroke: "#495057",
       },
