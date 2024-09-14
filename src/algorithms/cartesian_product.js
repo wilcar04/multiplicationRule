@@ -1,47 +1,34 @@
-function cartesianProductSingleSetLimited(set, N, limit) {
-    // Verificar si el conjunto está vacío o N <= 0
-    if (set.length === 0 || N <= 0) {
+export function cartesianProductDices(N, limit, startIndex = 0) {
+    if (N <= 0) {
         return [[]];
     }
-
+    let set = [1,2,3,4,5,6]; 
     // Función auxiliar para combinar resultados con límite de filas
-    function combine(current, remaining, limit) {
+    function combine(current, remaining, limit, currentIndex) {
         if (remaining === 0) {
-            if (result.length < limit) {
-                result.push(current);
+            if (result.length < limit && currentIndex >= startIndex) {
+                result.push(current.slice().reverse());
             }
-            return;
+            currentIndex++;
+            return currentIndex;
         }
 
         for (let item of set) {
             if (result.length >= limit) {
-                return;
+                return currentIndex;
             }
-            combine(current.concat(item), remaining - 1, limit);
+            currentIndex = combine(current.concat(item), remaining - 1, limit, currentIndex);
         }
+        return currentIndex;
     }
 
     const result = [];
-    combine([], N, limit);
+    let currentIndex = 0;
+    combine([], N, limit, currentIndex);
     return result;
 }
-// ESTA ES LA FUNCIÓN QUE SE VA A USAR DESDE EL FRONT
-export function getLimitedCombinations(set, N, limit=50) {
-    let firstSet, lastSet = null;
-    if (set.length**N > limit*2){
-        firstSet = cartesianProductSingleSetLimited(set, N, limit);
-        lastSet = cartesianProductSingleSetLimited(set.reverse(), N, limit).reverse();
-    } else{
-        firstSet = cartesianProductSingleSetLimited(set, N, limit*2);
-    }
-    return [firstSet, lastSet];
-}
 
-const set = [1, 2]; 
-const N = 10;
-const limit = 300;
- 
-let result = getLimitedCombinations(set, N, limit);
 
-console.log(result[0].length,'Primeras 50 combinaciones:', result[0]);
-console.log(result[1]?.length,'Últimas 50 combinaciones:', result[1]);
+
+let result = cartesianProductDices(5,100, 500);
+console.log('result', result);
