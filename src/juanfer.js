@@ -1,0 +1,32 @@
+export function juanfer(quantity, counter) {
+  const result = counter + 1;
+  return [
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+    [result, result, result],
+  ];
+}
