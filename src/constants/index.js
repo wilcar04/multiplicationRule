@@ -5,6 +5,8 @@ import dado4 from "../assets/Dado 4.png";
 import dado5 from "../assets/Dado 5.png";
 import dado6 from "../assets/Dado 6.png";
 
+export const sectionLimit = 30;
+
 export const dados = [
   {
     id: 1,

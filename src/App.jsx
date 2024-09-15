@@ -1,30 +1,32 @@
 import { useState } from "react";
 import portal from "./assets/portal.png";
-import background from "./assets/background.png";
 import Result from "./Result";
 
 function App() {
-  const [form, setForm] = useState({
-    slots: null,
-    maxValue: null,
-  });
+  const [form, setForm] = useState("");
+  const [calculate, setCalculate] = useState(null);
 
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { value } = event.target;
+    setForm(value);
+  }
 
-    setForm((prevForm) => {
-      return {
-        ...prevForm,
-        [name]: value,
-      };
-    });
+  function startCalculating() {
+    const number = parseFloat(form);
+
+    if (!isNaN(number) && Number.isInteger(number)) {
+      if (number > 7000) {
+        alert("El valor ingresado no puede superar 7000");
+      } else {
+        setCalculate(number);
+      }
+    } else {
+      alert("El valor ingresado debe ser un entero positivo");
+    }
   }
 
   return (
-    <main className="relative flex justify-center min-h-svh">
-      <div className="fixed inset-0 -z-10">
-        <img src={background} alt="background" className="object-cover " />
-      </div>
+    <main className="relative flex justify-center bg-fixed bg-cover min-h-svh bg-waves-background">
       <section className="relative w-[50rem] mx-auto bg-white px-16 overflow-hidden">
         <div className="absolute -translate-x-1/2 top-2 left-1/2 w-[120%] scale-110 opacity-10 rotate-90">
           <img
@@ -40,9 +42,9 @@ function App() {
             Regla de la multiplicación
           </h3>
           <p className="mt-4 text-n-4">
-            En esta página podrás visualizar el espacio muestral de una
-            combinación determinada de elementos. Podrás ver los resultados
-            posibles para una mejor comprensión estadísitca.
+            En esta página podrás visualizar el espacio muestral de un
+            lanzamiento de N dados. Podrás ver los resultados posibles para una
+            mejor comprensión estadísitca.
           </p>
         </div>
 
@@ -62,26 +64,29 @@ function App() {
           </div>
 
           {/* Form */}
-          <div className="flex justify-center">
-            <div className="mx-auto">
+          <div className="flex flex-col justify-center w-[14rem] mx-auto">
+            <div className="w-full">
               <input
-                type="text"
-                value={form.maxValue}
+                type="number"
+                value={form}
                 placeholder="Valor máximo"
                 onChange={handleChange}
                 name="slots"
-                className="px-3 py-2 border rounded-md bg-n-3 border-stroke/20 focus:outline focus:outline-primary/80"
+                className="w-full px-3 py-2 border rounded-md bg-n-3 border-stroke/20 focus:outline focus:outline-primary/80"
               />
             </div>
-          </div>
-
-          <div className="flex justify-center mt-8">
-            <button className="py-2 font-medium text-white shadow-lg px-14 bg-primary rounded-xl shadow-primary/50 hover:shadow-xl hover:shadow-primary/60">
+            <button
+              onClick={startCalculating}
+              className="py-2 mt-8 font-medium text-center text-white shadow-lg bg-primary rounded-xl shadow-primary/50 hover:shadow-xl hover:shadow-primary/60"
+            >
               Calcular
             </button>
           </div>
+
+          <div className="flex justify-center mt-8"></div>
         </div>
-        <Result />
+
+        {calculate && <Result key={calculate} quantity={calculate} />}
       </section>
     </main>
   );
